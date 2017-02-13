@@ -15,7 +15,7 @@ public class Mpileup2syncMain {
 
     	
     	CommandLineParser.parseArguments(args,logger);
-    	System.exit(1);
+    	System.exit(0);
     
     }
 

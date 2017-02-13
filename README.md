@@ -6,7 +6,7 @@ PoPoolation is a pipeline for analysing pooled next generation sequencing data d
 This is a personal fork from the [SourceForge repository](https://sourceforge.net/p/popoolation2/code)
 for adding extra features to the code.
 
-## Extra features:
+## Extra features (both perl and java code):
 
 * Support for gzip/bgzip inputs (ending with .gz extension): mpileup, sync and gtf
-* Support for gzip output (if ending with .gz extension): sync (not in mpileup2sync.jar and java code)
+* Support for gzip output (if ending with .gz extension): sync

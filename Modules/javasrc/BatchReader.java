@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.*;
+import java.util.zip.GZIPInputStream;
 
 public class BatchReader {
 	private String inputFile;
@@ -8,9 +9,14 @@ public class BatchReader {
 	public BatchReader(String inputFile, int blockSize)
 	{
 		try{
-			sr=new BufferedReader(new FileReader(inputFile));
+			InputStream inputStream = new FileInputStream(inputFile);
+			// wrap if it ends with .gz	
+			if (inputFile.endsWith(".gz")) {
+				inputStream = new GZIPInputStream(inputStream);
+			}
+			sr = new BufferedReader(new InputStreamReader(inputStream));
 		}
-		catch(FileNotFoundException e)
+		catch(IOException e)
 		{
 			e.printStackTrace();
 			System.exit(0);

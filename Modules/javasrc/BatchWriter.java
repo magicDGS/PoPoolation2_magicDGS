@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.zip.GZIPOutputStream;
+
 public class BatchWriter {
 	private  BufferedWriter bw;
 	private final String outputFile;
@@ -9,7 +11,12 @@ public class BatchWriter {
 	
 		try
 		{
-			this.bw = new BufferedWriter(new FileWriter(outputFile));
+			OutputStream outputStream = new FileOutputStream(outputFile);
+			// wrap if it ends with .gz
+			if (outputFile.endsWith(".gz")) {
+				outputStream = new GZIPOutputStream(outputStream);
+			}
+			this.bw = new BufferedWriter(new OutputStreamWriter(outputStream));
 		}
 		catch(IOException e)
 		{
