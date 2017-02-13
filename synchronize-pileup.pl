@@ -65,7 +65,7 @@ close $pfh;
 my $pp=get_pileup_parser($fastqtype,1,1,2000000000,$minQual);
 
 
-open my $ofh, ">$outputFile" or die "Could not open output file";
+my $ofh = get_maybe_gzip_output_fh($outputFile);
 
 my $filecount=@input;
 my $pileupFiles;

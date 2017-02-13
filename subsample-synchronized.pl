@@ -60,7 +60,7 @@ my $pp=get_sumsnp_synparser(10000000,$targetcoverage,$maxcoverage); # the 10^6 i
 my $subsampler=get_subsampler($method,$targetcoverage);
 
 my $ifh = get_maybe_gzip_input_fh($input);
-open my $ofh, ">",$output or die "Could not open output file $output";
+my $ofh = get_maybe_gzip_output_fh($output);
 
 while(my $line=<$ifh>)
 {

@@ -46,7 +46,7 @@ my ($chrdec,$genehash)=Utility::read_gtf($gtffile);
 
 print "Parsing sync file..\n";
 my $ifh = get_maybe_gzip_input_fh($input);
-open my $ofh, ">",$output or die "Could not open output file";
+my $ofh = get_maybe_gzip_output_fh($output);
 
 while(my $line=<$ifh>)
 {

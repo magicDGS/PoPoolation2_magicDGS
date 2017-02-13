@@ -47,7 +47,7 @@ close $pfh;
 my $pp=get_basic_mpileupparser($fastqtype,$minQual);
 
 my $ifh = get_maybe_gzip_input_fh($input);
-open my $ofh, ">", $output or die "Could not open output file $output";
+my $ofh = get_maybe_gzip_output_fh($output);
 
 
 while(my $l=<$ifh>)
