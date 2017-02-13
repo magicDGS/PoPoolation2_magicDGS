@@ -6,6 +6,7 @@
     use lib "$Bin";
     use List::Util qw[min max];
     use Synchronized;
+    use IOUtils;
     
     
     sub new
@@ -18,7 +19,7 @@
         my $mincov=shift;
         my $maxcov=shift;
         
-        open my $fh,"<$file" or die "Could not open file handle";
+        my $fh = get_maybe_gzip_input_fh($file);
         
         #get the parser of the synchronized file
         my $sp=get_sumsnp_synparser($mincount,$mincov,$maxcov);

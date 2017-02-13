@@ -11,6 +11,7 @@ use MaxCoverage;
 use Synchronized;
 use SynchronizeUtility;
 use MajorAlleles; # get the two major allele
+use IOUtils;
 use Test;
 
 
@@ -136,7 +137,6 @@ exit(0);
 	use Synchronized;
 	use SynchronizeUtility;
 	use MajorAlleles; # get the two major allele
-	use IO::Uncompress::Gunzip;
 	use IO::Compress::Gzip;
 	
 	sub write_output
@@ -467,13 +467,7 @@ PERLSUCKS
 		my $dim_str="c(2,2,$third_dim)";
 		
 		
-		my $ifh = undef;
-		if($syncfile=~/\.gz$/i) {
-			 $ifh = new IO::Uncompress::Gunzip $syncfile or die "Could not open file gzipped file $syncfile  $!";
-		}
-		else {
-			open $ifh, "<", $syncfile  or die "Could not open file handle, $!";
-		}
+		my $ifh = get_maybe_gzip_input_fh($syncfile)
 		open my $ofh, ">", $rinput or die "Could not open routput file";
 		write_mantelro($ofh);
 		while(my $line=<$ifh>)

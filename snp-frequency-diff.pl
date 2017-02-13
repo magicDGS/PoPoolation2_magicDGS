@@ -10,6 +10,7 @@ use lib "$RealBin/Modules";
 use List::Util qw[min max];
 use SynchronizeUtility;
 use MaxCoverage;
+use IOUtils;
 
 
 my $input;
@@ -62,7 +63,7 @@ print $pfh "Using help\t$help\n";
 close $pfh;
 
 my($output_rc,$output_pw)=($outputprefix."_rc",$outputprefix."_pwc");
-open my $ifh, "<", $input or die "Could not open input file";
+my $ifh = get_maybe_gzip_input_fh($input);
 open my $ofhrc, ">", $output_rc or die "Could not open output file";
 open my $ofhpw, ">", $output_pw or die "Could not open output file";
 

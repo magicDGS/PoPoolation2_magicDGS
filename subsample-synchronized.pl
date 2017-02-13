@@ -12,6 +12,7 @@ use MaxCoverage;
 use Subsample;
 use Synchronized;
 use SynchronizeUtility;
+use IOUtils;
 
 my $input;
 my $output="";
@@ -58,7 +59,7 @@ my $maxcoverage=get_max_coverage($input,$usermaxcoverage);
 my $pp=get_sumsnp_synparser(10000000,$targetcoverage,$maxcoverage); # the 10^6 is necessary for the tainted option (indel)
 my $subsampler=get_subsampler($method,$targetcoverage);
 
-open my $ifh, "<",$input or die "Could not open input file $input";
+my $ifh = get_maybe_gzip_input_fh($input);
 open my $ofh, ">",$output or die "Could not open output file $output";
 
 while(my $line=<$ifh>)

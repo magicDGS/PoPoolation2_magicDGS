@@ -12,6 +12,7 @@ use MaxCoverage;
 use Subsample;
 use Synchronized;
 use SynchronizeUtility;
+use IOUtils;
 
 my $input;
 my $output="";
@@ -72,7 +73,7 @@ my $popcount=get_popcount_forsyncfile($input);
 
 my($regionchr,$regionstart,$regionend,$region)=Utility::parse_region($userregion);
 
-open my $ifh, "<",$input or die "Could not open input file $input";
+my $ifh = get_maybe_gzip_input_fh($input);
 my $activeflag=0;
 my $snpsinregion=[];
 SYNCLINE: while(my $line=<$ifh>)

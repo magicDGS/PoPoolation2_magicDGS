@@ -5,6 +5,7 @@ use Data::Dumper;
 use Getopt::Long;
 use Pod::Usage;
 use FindBin qw($RealBin);
+use IOUtils;
 
 our $verbose=1;
 my $input="";
@@ -44,9 +45,9 @@ close $pfh;
 
 my ($chrhash)=Utility::read_gtf($gtffile);
 
-open my $ifh, "<",$input or die "Could not open pileup file";
+my $ifh = get_maybe_gzip_input_fh($input);
 
-print "Start parsing the pileup file..\n";
+print "Start parsing the sync file..\n";
 open my $ofh,">",$output or die "Could not open output file";
 my $counter=0;
 
@@ -119,7 +120,7 @@ exit;
     sub read_gtf
     {
         my $file=shift;
-        open my $ifh,"<",$file or die "Could not open gtf-file";
+        my $ifh = get_maybe_gzip_input_fh($file);
         my $chrhash={};
         
         print "Parsing gtf file..\n";

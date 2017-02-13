@@ -16,6 +16,7 @@ use FindBin qw($RealBin);
 use lib "$RealBin/Modules";
 use SynchronizeUtility;
 use Pileup;
+use IOUtils;
 
 
 #--input test/t.pile --input test/r.pile --input test/s.pile --output test/test.comb --fastq-type illumina
@@ -270,7 +271,7 @@ exit;
         my $class=shift;
         my $path=shift;
         my $pp=shift;
-        open my $fh,"<$path" or die "Could not open path";
+        my $fh = get_maybe_gzip_input_fh($path);
         $counter||=0;
         
         my $e={

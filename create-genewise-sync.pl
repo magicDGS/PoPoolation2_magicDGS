@@ -8,6 +8,7 @@ use Pod::Usage;
 use FindBin qw($RealBin);
 use lib "$RealBin/Modules";
 use Synchronized;
+use IOUtils;
 
 my $input="";
 my $gtffile="";
@@ -44,7 +45,7 @@ my $syncparser=get_basic_syncparser();
 my ($chrdec,$genehash)=Utility::read_gtf($gtffile);
 
 print "Parsing sync file..\n";
-open my $ifh, "<",$input or die "Could not open input file";
+my $ifh = get_maybe_gzip_input_fh($input);
 open my $ofh, ">",$output or die "Could not open output file";
 
 while(my $line=<$ifh>)
@@ -301,7 +302,8 @@ exit;
     sub read_gtf
     {
         my $file=shift;
-        open my $ifh,"<",$file or die "Could not open gtf-file";
+        ## support also gzipped gtf
+        my $ifh = get_maybe_gzip_input_fh($file);
         my $chrhash={};
         my $genecoll={};
         my $genemap={};

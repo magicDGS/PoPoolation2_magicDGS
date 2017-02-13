@@ -6,6 +6,7 @@ use Getopt::Long;
 use Pod::Usage;
 use FindBin qw($RealBin);
 use lib "$RealBin/../Modules";
+use IOUtils;
 our $verbose=1;
 
 my $input="";
@@ -44,7 +45,7 @@ print $pfh "Using test\t$test\n";
 print $pfh "Using help\t$help\n";
 close $pfh;
 
-open my $ifh, "<",$input or die "Could not open pileup file";
+my $ifh = get_maybe_gzip_input_fh($input);
 open my $ofh,">",$output or die "Could not open output file";
 my $counter=0;
 

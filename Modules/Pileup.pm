@@ -17,8 +17,6 @@ my $qualhash={
 
 # qualencoding,mincount,mincov,maxcov,minqual
 # my $pp=get_pileup_parser();
-
- 
  
 sub get_basic_mpileupparser
 {

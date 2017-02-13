@@ -5,13 +5,12 @@
     use FindBin qw/$Bin/;
     use lib "$Bin";
     use Synchronized;
+    use IOUtils;
     use Test;
-    use IO::Uncompress::Gunzip;
     
     require Exporter;
     our @ISA = qw(Exporter);
     our @EXPORT =qw(format_parsed_pileup get_popcount_forsyncfile format_synchronized syncsample2string resolve_selected_populations);
-    
     
     sub syncsample2string
     {
@@ -53,13 +52,7 @@
     {
         my $syncfile=shift;
 	
-	my $ifh = undef;
-	if($syncfile=~/\.gz$/i) {
-		$ifh = new IO::Uncompress::Gunzip $syncfile or die "Could not open file gzipped file $syncfile  $!";
-	}
-	else {
-		open $ifh, "<", $syncfile  or die "Could not open file handle, $!";
-	}
+	   my $ifh = get_maybe_gzip_input_fh($syncfile);
 	
         my $pp=get_basic_syncparser();
         my $firstline=<$ifh>;
