@@ -467,7 +467,7 @@ PERLSUCKS
 		my $dim_str="c(2,2,$third_dim)";
 		
 		
-		my $ifh = get_maybe_gzip_input_fh($syncfile)
+		my $ifh = get_maybe_gzip_input_fh($syncfile);
 		open my $ofh, ">", $rinput or die "Could not open routput file";
 		write_mantelro($ofh);
 		while(my $line=<$ifh>)
